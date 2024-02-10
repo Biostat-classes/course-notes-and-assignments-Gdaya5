@@ -148,6 +148,18 @@ length returns the number of items
 max(x)
 ```
 
+```{r}
+x[x<10]
+```
+
+```{r}
+x^2
+```
+
+```{r}
+x[x<12&x>7]
+```
+
 #### 3
 
 Is `-1:2` the same as `(-1):2` or `-(1:2)`? INSERT AN R CHUNK HERE AND
