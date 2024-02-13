@@ -122,7 +122,8 @@ What does it return?
 
 Determine what the ":" does! Complete the following sentence:
 
-The : means that it makes a list from the bottom number to the top
+The : means that it makes a list in a sequence from the bottom number to
+the top.
 
 #### 2
 
@@ -142,28 +143,49 @@ by clicking the *Insert Chunk* button on the toolbar or by pressing
 length(x)
 ```
 
-length returns the number of items
+length returns the number of items or elements in a vector.
 
 ```{r}
 max(x)
 ```
 
-```{r}
-x[x<10]
-```
+The max returns the highest value.
 
 ```{r}
 x^2
 ```
 
+"\^2" Squares a value
+
 ```{r}
 x[x<12&x>7]
 ```
 
+Square brackets allows you to return ( or work with) only portions of a
+vector
+
 #### 3
 
-Is `-1:2` the same as `(-1):2` or `-(1:2)`? INSERT AN R CHUNK HERE AND
-RUN EACH OF THESE COMMANDS. Then state what each of these does.
+Is `-1:2` the same as `(-1):2` or `-(1:2)`?
+
+```{r}
+-1:2
+```
+
+```{r}
+(-1):2
+```
+
+```{r}
+-(1:2)
+```
+
+INSERT AN R CHUNK HERE AND RUN EACH OF THESE COMMANDS. Then state what
+each of these does.
+
+The first creates a sequence from -1 to 2 by ones, the second one does
+the same And the third creates a sequence from 1 to 2 then applies a
+negative to it.
 
 ### Data input, plotting, and tests
 
@@ -186,12 +208,30 @@ of data is stored in each variable?
 
 ENTER ANSWERS HERE. ADD ANY R CHUNKS YOU USED TO FIND THE ANSWER.
 
+```{r}
+dim(sleep)
+```
+
+dim returns the number of rows and columns in that order, in a
+dataframe! So sleep has rdim(sleep)\[1\] rows.
+
+```{r}
+str(sleep)
+```
+
+The str function returns the size of the dataset and the class of each
+column.
+
 #### 5
 
 Change the column named *BodyWt* to *Body_weight*"\* in the sleep
 dataset.
 
 ADD ANY R CHUNKS YOU USED TO COMPLETE THE TASK.
+
+```{r}
+names(sleep)[names(sleep) %in% "BodyWt"] <- "Body_weight"
+```
 
 #### 6
 
@@ -229,6 +269,15 @@ NOTE YOU CAN ADD A PLOT TO THE DOCUMENT TOO! AMEND THE BELOW AS NEEDED.
 plot(cars)
 ```
 
+```{r}
+plot(TotalSleep ~ Primate, sleep)
+```
+
+```{r}
+plot(TotalSleep ~ factor(Primate), sleep, main = "Variance in sleep differs between primates and non-primates",
+     xlab = "primate", Ylab = "Total sleep (hours)")
+```
+
 #### 7
 
 The **sleep** dataset begs to have a linear model fit for it. Let's
@@ -238,6 +287,27 @@ model to obtain the p-value for the model (hint: summary()). What does
 this imply?
 
 ENTER ANSWERS HERE. ADD ANY R CHUNKS YOU USED TO FIND THE ANSWER.
+
+```{r}
+plot(TotalSleep ~ BrainWt, sleep)
+```
+
+We have a few measurements where BrainWt\>1000, so let's exclude those
+for the model.
+
+```{r}
+sleep_fit <- lm(TotalSleep ~ BrainWt, sleep[sleep$BrainWt<1000,])
+summary(sleep_fit)
+```
+
+We see a significant (p \< .05) relationship between BrainWt and
+TotalSleep, and it appears that TotalSleep decreases as BrainWt
+increases (note the negative estimate). We can visualize this using
+
+```{r}
+plot(TotalSleep ~ BrainWt, data = sleep[sleep$BrainWt < 1000, ])
+abline(sleep_fit)
+```
 
 ### EXTRA QUESTIONS
 
