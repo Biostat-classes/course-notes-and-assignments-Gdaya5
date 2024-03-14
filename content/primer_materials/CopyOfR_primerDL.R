@@ -324,7 +324,7 @@ str(airquality)
 # factor, not an integer). if you don't fix this R may run the wrong analyses (e.g.,
 # a regression when you want an ANOVA).
 
-airquality$Month <- as.factor(airquality$Month)
+
 #similar commands exist (as.integer, as.numeric) for other classes.note how you use
 #this as it may give unusual results. For example, if you turn factor levels into numbers
 #they will go fro 1 up g (total # of levels) based on the order R had them in (often
@@ -426,7 +426,7 @@ levels(airquality$Month)
 #data frames have names(headers) you can change similarly
 #you can also specifically change indiviudal names or levels with
 names(airquality) #gives you column names
-names(airquality)[names(airquality) %in% "Month"] = "example_change" # %in% looks for matches
+names(airquality)[names(airquality) %in% "Month"] <- "example_change" # %in% looks for matches
 names(airquality)
 names(airquality)[names(airquality) %in% "example_change"] = "Month"
 
@@ -444,8 +444,6 @@ levels(airquality$Month)[levels(airquality$Month) %in% "test_change"] = "August"
 #you could have duplicated the column and changed the copy. the main idea here,
 #however, is you are never impacting the actual data file (unless you specifically
 #save over it). for example, we could add
-airquality$log_Temp <- log(airquality$Temp)
-
 #now look at the plot again
 plot(Temp ~ Month, airquality)
 #note this is a box-whisker plot by default
